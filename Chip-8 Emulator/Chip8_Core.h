@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Window.h"
+#include "Input.h"
+#include "Globals.h"
 
 #include <stack>
 #include <stdint.h>
@@ -14,16 +16,22 @@ public:
 	Chip8_Core();
 	~Chip8_Core();
 
+	Globals::UpdateStatus Update();
+
+private:
+	void UpdateTimers();
+
 private:
 	Window window;
+	Input input;
 
 	uint8_t memory[RAMSize];
-	uint16_t programCounter;
-	uint16_t indexRegister;
-	std::stack<uint16_t> stack;
+	uint16_t programCounter = 0;
+	uint16_t indexRegister = 0;
+	std::stack<uint16_t> stack; // TODO: Maybe limit the stack
 
-	uint8_t delayTimer;
-	uint8_t audioTimer;
+	uint8_t delayTimer = 0;
+	uint8_t audioTimer = 0;
 
 	uint8_t variableRegisters[16];
 

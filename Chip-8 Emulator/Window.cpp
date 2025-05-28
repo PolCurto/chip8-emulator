@@ -16,11 +16,10 @@ bool Window::Init()
 	else
 	{
 		//Create window
-		int width = Width;
-		int height = Height;
-		Uint32 flags = SDL_WINDOW_POPUP_MENU;
+		int width = Width * Scale;
+		int height = Height * Scale;
 
-		window = SDL_CreateWindow("Chip-8", width, height, flags);
+		window = SDL_CreateWindow("Chip-8", width, height, 0);
 
 		if (window == nullptr)
 		{

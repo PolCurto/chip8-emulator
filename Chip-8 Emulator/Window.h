@@ -2,9 +2,10 @@
 
 struct SDL_Window;
 
+constexpr int Width = 64;
+constexpr int Height = 32;
 
-constexpr int Width = 100;
-constexpr int Height = 100;
+constexpr int Scale = 10;
 
 class Window
 {
