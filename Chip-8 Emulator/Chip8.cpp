@@ -28,17 +28,17 @@ Globals::UpdateStatus Chip8::Update()
 	UpdateTimers();
 	status = input.Update();
 
-	Fetch();
-	Decode();
+	uint16_t opcode = Fetch();
+	Decode(opcode);
+
+	window.Render(pixels);
 
 	return status;
 }
 
 uint16_t Chip8::Fetch()
 {
-	uint16_t opcode;
-	uint8_t* memoryPtr = &memory[programCounter];
-	memcpy(&opcode, memoryPtr, sizeof(opcode));
+	uint16_t opcode = (memory[programCounter] << 8) | memory[programCounter + 1];
 
 	programCounter += 2;
 	return opcode;
@@ -53,7 +53,7 @@ void Chip8::Decode(uint16_t opcode)
 	uint8_t n = opcode & 0x000F;
 
 	uint8_t nn = opcode & 0x00FF;
-	uint8_t nnn = opcode & 0x0FFF;
+	uint16_t nnn = opcode & 0x0FFF;
 
 	// THE switch
 	switch (firstNibble)
@@ -62,7 +62,7 @@ void Chip8::Decode(uint16_t opcode)
 		switch (nnn)
 		{
 		case (0x0E0):
-			pixels.fill(false);
+			memset(pixels, 0, sizeof(pixels));
 			break;
 
 		case (0x0EE):
@@ -70,6 +70,7 @@ void Chip8::Decode(uint16_t opcode)
 			stack.pop();
 			break;
 		}
+		break;
 
 	case (0x1):
 		programCounter = nnn;
@@ -112,28 +113,39 @@ void Chip8::Decode(uint16_t opcode)
 		break;
 
 	case (0xD):
-		uint8_t vx = variableRegisters[x] & 63;
+	{
+		const uint8_t vx = variableRegisters[x] & 63;
 		uint8_t vy = variableRegisters[y] & 31;
 		variableRegisters[0XF] = 0;
 
 		for (uint8_t i = 0; i < n; ++i)
 		{
-			uint8_t spriteData = memory[indexRegister + n];
-			for (int j = 0; j < 8; ++i)
+			const uint8_t spriteData = memory[indexRegister + i];
+			uint8_t px = vx;
+			for (int j = 0; j < 8; ++j)
 			{
 				bool bit = (spriteData >> (7 - j)) & 0x0F;
 				if (bit)
 				{
-					if (pixels[vx * vy]) variableRegisters[0xF] = 1;
-					pixels[vx * vy] = !pixels[vx * vy];
+					int index = vy * window.GetWidth() + px;
+					if (pixels[index] == 0xFFFFFFFF)
+					{
+						variableRegisters[0xF] = 1;
+						pixels[index] = 0x000000FF;
+					}
+					else
+					{
+						pixels[index] = 0xFFFFFFFF;
+					}
 				}
-				if (vx == window.GetWidth()) break;
-				++vx;
+				++px;
+				if (px == window.GetWidth()) break;
 			}
 			++vy;
 			if (vy == window.GetHeight()) break;
 		}
 		break;
+	}
 
 	case (0xE):
 		break;

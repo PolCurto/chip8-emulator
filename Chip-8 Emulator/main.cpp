@@ -24,6 +24,8 @@ int main()
 	uint64_t freq = SDL_GetPerformanceFrequency();;
 	float preciseTimer = 0;
 
+	chip8.LoadROM("IBM Logo.ch8");
+
 	while (state == MainStates::Continue)
 	{
 		//TODO: Main loop

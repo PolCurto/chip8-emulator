@@ -39,7 +39,7 @@ private:
 	uint8_t audioTimer = UINT8_MAX;
 
 	std::array<uint8_t, 16> variableRegisters;
-	std::array<bool, Width * Height> pixels;
+	uint32_t pixels[Width * Height];
 
 	//TODO: ROMS adress from 000 to 1FF is empty (The font go there)
 };
