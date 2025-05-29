@@ -25,8 +25,12 @@ int main()
 	float preciseTimer = 0;
 
 	//chip8.LoadROM("IBM Logo.ch8");
+	//chip8.LoadROM("BC_test.ch8");
 	//chip8.LoadROM("test_opcode.ch8");
-	chip8.LoadROM("Tetris.ch8");
+	//chip8.LoadROM("Tetris.ch8");
+	chip8.LoadROM("Pong.ch8");
+	//chip8.LoadROM("Most Dangerous Game.ch8");
+	//chip8.LoadROM("Cave.ch8");
 
 	while (state == MainStates::Continue)
 	{

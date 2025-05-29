@@ -1,8 +1,10 @@
 #include "Chip8.h"
 #include "Font.h"
 
+#include <SDL3/SDL.h>
 #include <fstream>
 #include <cassert>
+#include <iostream>
 
 Chip8::Chip8()
 {
@@ -15,6 +17,8 @@ Chip8::Chip8()
 	}
 
 	randByte = std::uniform_int_distribution<unsigned int>(0, 255U);
+
+	lastTick = SDL_GetTicks();
 }
 
 Chip8::~Chip8()
@@ -27,7 +31,11 @@ Globals::UpdateStatus Chip8::Update()
 {
 	Globals::UpdateStatus status = Globals::UpdateStatus::Continue;
 
-	UpdateTimers();
+	if (SDL_GetTicks() - lastTick >= 15)
+	{
+		UpdateTimers();
+		lastTick = SDL_GetTicks();
+	}
 	status = input.Update();
 
 	uint16_t opcode = Fetch();
@@ -288,6 +296,9 @@ void Chip8::Decode(uint16_t opcode)
 		}
 
 		break;
+
+	default:
+		std::cerr << "Unknown instruction: " << opcode << std::endl;
 	}
 }
 

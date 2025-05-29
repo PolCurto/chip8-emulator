@@ -45,5 +45,7 @@ private:
 	std::default_random_engine randGen;
 	std::uniform_int_distribution<unsigned int> randByte;
 
+	uint64_t lastTick = 0;
+
 	//TODO: ROMS adress from 000 to 1FF is empty (The font go there)
 };
