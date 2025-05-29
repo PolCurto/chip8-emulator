@@ -60,3 +60,13 @@ bool Input::IsAnyKeyDown()
 	}
 	return false;
 }
+
+uint8_t Input::GetCurrentKeyDown()
+{
+	for (uint8_t i = 0; i < keys.size(); ++i)
+	{
+		if (keys[i].second) return i;
+	}
+
+	return 0;
+}

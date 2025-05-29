@@ -258,12 +258,12 @@ void Chip8::Decode(uint16_t opcode)
 			break;
 
 		case (0x0A):
-			if (input.IsAnyKeyDown()) registers[x] = 0x01; // TODO: Get the hex value of the inputted key
+			if (input.IsAnyKeyDown()) registers[x] = input.GetCurrentKeyDown(); // TODO: Get the hex value of the inputted key
 			else programCounter -= 2;
 			break;
 
 		case (0x29):
-			indexRegister = Font::Adress;
+			indexRegister = Font::Adress + (registers[x] * 5);
 			break;
 
 		case (0x33):

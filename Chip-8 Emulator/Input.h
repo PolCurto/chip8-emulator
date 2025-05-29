@@ -17,6 +17,7 @@ public:
 
 	bool IsKeyDown(const uint8_t key);
 	bool IsAnyKeyDown();
+	uint8_t GetCurrentKeyDown();
 
 private:
 	std::array<std::pair<SDL_Scancode, bool>, 16> keys = {

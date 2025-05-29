@@ -4,7 +4,7 @@
 #include <SDL3/SDL_timer.h>
 #include <iostream>
 
-constexpr float LoopRate = 1.1f;
+constexpr float LoopRate = 0.8f;
 
 enum class MainStates
 {
@@ -28,7 +28,8 @@ int main()
 	//chip8.LoadROM("BC_test.ch8");
 	//chip8.LoadROM("test_opcode.ch8");
 	//chip8.LoadROM("Tetris.ch8");
-	chip8.LoadROM("Pong.ch8");
+	//chip8.LoadROM("Pong.ch8");
+	chip8.LoadROM("brix.ch8");
 	//chip8.LoadROM("Most Dangerous Game.ch8");
 	//chip8.LoadROM("Cave.ch8");
 
