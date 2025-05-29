@@ -16,6 +16,7 @@ bool Input::Init()
 		ret = false;
 	}
 
+
 	return ret;
 }
 
@@ -37,5 +38,25 @@ Globals::UpdateStatus Input::Update()
 		}
 	}
 
+	const bool* keyboard = SDL_GetKeyboardState(NULL);
+	for (std::pair<SDL_Scancode, bool>& key : keys)
+	{
+		key.second = keyboard[key.first];
+	}
+
 	return Globals::UpdateStatus::Continue;
+}
+
+bool Input::IsKeyDown(const uint8_t key)
+{
+	return keys[key].second;
+}
+
+bool Input::IsAnyKeyDown()
+{
+	for (std::pair<SDL_Scancode, bool>& key : keys)
+	{
+		if (key.second) return true;
+	}
+	return false;
 }

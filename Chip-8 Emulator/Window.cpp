@@ -41,6 +41,7 @@ bool Window::Init()
 			std::cerr << "Texture could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 			status = false;
 		}
+		SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
 	}
 

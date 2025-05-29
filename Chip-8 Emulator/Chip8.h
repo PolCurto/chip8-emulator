@@ -6,6 +6,7 @@
 
 #include <stack>
 #include <stdint.h>
+#include <random>
 
 constexpr int RAMSize = 4096;
 
@@ -38,8 +39,11 @@ private:
 	uint8_t delayTimer = UINT8_MAX;
 	uint8_t audioTimer = UINT8_MAX;
 
-	std::array<uint8_t, 16> variableRegisters;
+	std::array<uint8_t, 16> registers;
 	uint32_t pixels[Width * Height];
+
+	std::default_random_engine randGen;
+	std::uniform_int_distribution<unsigned int> randByte;
 
 	//TODO: ROMS adress from 000 to 1FF is empty (The font go there)
 };
