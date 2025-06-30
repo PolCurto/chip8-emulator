@@ -17,7 +17,7 @@ To run this emulator, download the latest release and execute it through the com
 
     ./Chip-8 <ROM file>
 
-In the /Roms directory there are all the ROMs I tested, they should work fine. There are a lot more in the internet if you want ot try them out.
+In the /Roms directory there are all the ROMs I tested, they should work fine. There are a lot more in the internet if you want to try them out.
 
 ## Dependencies
 
