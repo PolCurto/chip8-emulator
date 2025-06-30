@@ -1,13 +1,13 @@
 # Chip-8 Emulator
 A Chip-8 emulator written in C++. It uses SDL3 to manage the window and inputs.
 
-![Astro Dodge](images/AstroDodge.png)
+![Astro Dodge](Images/AstroDodge.png)
 *Astro Dodge*
 
-![Tetris](images/Tetris.png)
+![Tetris](Images/Tetris.png)
 *Tetris*
 
-![Most Dangerous Game](images/MostDangerousGame.png)
+![Most Dangerous Game](Images/MostDangerousGame.png)
 *Most Dangerous Game*
 
 For now this emulator lacks the audio features
