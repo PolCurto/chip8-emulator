@@ -65,7 +65,6 @@ void Chip8::Decode(uint16_t opcode)
 	uint8_t nn = opcode & 0x00FF;
 	uint16_t nnn = opcode & 0x0FFF;
 
-	// THE switch
 	switch (firstNibble)
 	{
 	case (0x0):
@@ -254,11 +253,10 @@ void Chip8::Decode(uint16_t opcode)
 
 		case (0x1E):
 			indexRegister += registers[x];
-			// TODO: Some games need the VF flagged as 1 if this overflows
 			break;
 
 		case (0x0A):
-			if (input.IsAnyKeyDown()) registers[x] = input.GetCurrentKeyDown(); // TODO: Get the hex value of the inputted key
+			if (input.IsAnyKeyDown()) registers[x] = input.GetCurrentKeyDown();
 			else programCounter -= 2;
 			break;
 
@@ -302,7 +300,7 @@ void Chip8::Decode(uint16_t opcode)
 	}
 }
 
-void Chip8::LoadROM(const char* filename)
+bool Chip8::LoadROM(const char* filename)
 {
 	std::ifstream file(filename, std::ios::binary | std::ios::ate);
 
@@ -321,6 +319,12 @@ void Chip8::LoadROM(const char* filename)
 		}
 
 		delete[] buffer;
+		return true;
+	}
+	else
+	{
+		std::cout << "[ERROR] File could not be opened" << std::endl;
+		return false;
 	}
 }
 

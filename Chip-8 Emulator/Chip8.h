@@ -20,7 +20,7 @@ public:
 
 	Globals::UpdateStatus Update();
 
-	void LoadROM(const char* filename);
+	bool LoadROM(const char* filename);
 
 private:
 	void UpdateTimers();
@@ -34,7 +34,7 @@ private:
 	uint8_t memory[RAMSize];
 	uint16_t programCounter = StartAdress;
 	uint16_t indexRegister = 0x000;
-	std::stack<uint16_t> stack; // TODO: Maybe limit the stack
+	std::stack<uint16_t> stack;
 
 	uint8_t delayTimer = UINT8_MAX;
 	uint8_t audioTimer = UINT8_MAX;
@@ -46,6 +46,4 @@ private:
 	std::uniform_int_distribution<unsigned int> randByte;
 
 	uint64_t lastTick = 0;
-
-	//TODO: ROMS adress from 000 to 1FF is empty (The font go there)
 };
